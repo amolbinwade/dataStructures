@@ -2,11 +2,10 @@
 # Problem Statement : Construct BST from given preorder traversal
 # Given preorder traversal of a binary search tree, construct the BST.
 # For example, if the given traversal is {10, 5, 1, 7, 40, 50}, then the output should be root of following tree.
+# This algo has time complexity of o(n (log n)^2)
 
 
 class BST:
-    root = None
-    preorder_index = 0
 
     # Steps to create BST:
     # 1. Create Root
@@ -14,12 +13,16 @@ class BST:
     # 3. Create Right tree
 
     class Node:
-        value = None
-        right = None
-        left = None
-        parent = None
+
+        def __init__(self):
+            self.value = None
+            self.right = None
+            self.left = None
+            self.parent = None
 
     def __init__(self, elements, order):
+        self.root = None
+        self.preorder_index = 0
         if len(elements) < 1:
             raise Exception("Tree Error. No elements provided.")
         if order == None or order != "preorder":
@@ -67,8 +70,15 @@ class BST:
                 node = right_node
                 print("right node " + str(node.value))
 
+    def print_inorder(self, node):
+        if node.left is not None:
+            self.print_inorder(node.left)
+        print(node.value)
+        if node.right is not None:
+            self.print_inorder(node.right)
+
 
 elmentsT = [10, 5, 1, 7, 40, 50]
 bst = BST(elmentsT, "preorder")
 print(bst.root.value)
-print(bst.root)
+bst.print_inorder(bst.root)
